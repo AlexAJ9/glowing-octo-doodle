@@ -1,0 +1,19 @@
+
+###
+GET http://localhost:3005/api/items
+
+
+###
+POST http://localhost:3005/api/items HTTP/1.1
+Content-Type: application/json 
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTM5ZDcwN2MxMjU2ODQyOTQ0MDNiZmQiLCJ1c2VybmFtZSI6InRlMm8yMTMzMTIxMyIsImlhdCI6MTU4MDkxMjE5OX0.GM9s4Zdo2Yq_fWrZVzZe2Rf57-HwooNQBTgeMsICwN0
+
+{
+"item_name": "Aaa", "item_description": "asdasdasd2", "item_rating":"4","userId":"5e39d707c125684294403bfd"
+}
+
+###
+DELETE http://localhost:3005/api/items/5e3ad75faaa6361588818e3b
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTM5ZDcwN2MxMjU2ODQyOTQ0MDNiZmQiLCJ1c2VybmFtZSI6InRlMm8yMTMzMTIxMyIsImlhdCI6MTU4MDkxNDMxMH0.HOBLLY7-WMtsvjMT3SOXIMT0MUDMiTBRcQGKUOKW0tQ
+
