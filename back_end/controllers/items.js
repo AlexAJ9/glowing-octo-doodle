@@ -42,10 +42,12 @@ itemsRouter.post('/', async (req, res, next) => {
             item_description: body.item_description,
             date: body.date,
             item_rating: body.item_rating,
+            times_rated: body.times_rated,
             user: user._id
         })
 
         const item = await newItem.save()
+        console.log(newItem)
         user.items = user.items.concat(item._id)
         await user.save()
         res.json(item.toJSON())
@@ -65,6 +67,37 @@ itemsRouter.put('/:id', async (req, res, next) => {
             item_rating: body.item_rating
         }
         const item = await Item.findByIdAndUpdate(req.params.id, updatedItem, { new: true })
+        res.status(201).json(item.toJSON())
+    }
+    catch (err) {
+        next(err)
+    }
+})
+itemsRouter.put('/rate/:id', async (req, res, next) => {
+    try {
+        const token = req.token
+        const decodedToken = jwt.verify(token, process.env.SECRET)
+        if (!decodedToken || !token) {
+            return res.status(401).json({ error: 'invalid token' })
+        }
+        const user = await User.findById(decodedToken._id)
+        const itemToUpdate = await Item.findById(req.params.id)
+        let rating = 0
+        if (itemToUpdate.times_rated > 1) {
+            rating = (Number(req.body.item_rating) + Number(itemToUpdate.item_rating)) / 2
+        }
+        else rating = (Number(req.body.item_rating) + Number(itemToUpdate.item_rating)) / (itemToUpdate.times_rated + 1)
+
+        const updatedItem = {
+            item_name: itemToUpdate.item_name,
+            item_description: itemToUpdate.item_description,
+            item_rating: rating,
+            date: itemToUpdate.date,
+            times_rated: itemToUpdate.times_rated + 1,
+        }
+        const item = await Item.findByIdAndUpdate(req.params.id, updatedItem, { new: true })
+        user.ratings = user.ratings.concat({ id: req.params.id, rating: req.body.item_rating })
+        await user.save()
         res.status(201).json(item.toJSON())
     }
     catch (err) {

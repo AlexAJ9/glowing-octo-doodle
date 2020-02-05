@@ -7,7 +7,8 @@ const itemSchema = new mongoose.Schema({
     item_description: { type: String, required: true, minlength: 5 },
     date: Date,
     item_rating: Number,
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    times_rated:Number,
 })
 
 itemSchema.set('toJSON', {

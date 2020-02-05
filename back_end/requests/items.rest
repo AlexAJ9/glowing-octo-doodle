@@ -6,14 +6,22 @@ GET http://localhost:3005/api/items
 ###
 POST http://localhost:3005/api/items HTTP/1.1
 Content-Type: application/json 
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTM5ZDcwN2MxMjU2ODQyOTQ0MDNiZmQiLCJ1c2VybmFtZSI6InRlMm8yMTMzMTIxMyIsImlhdCI6MTU4MDkxMjE5OX0.GM9s4Zdo2Yq_fWrZVzZe2Rf57-HwooNQBTgeMsICwN0
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTNhZTlhYjllYmRjYjFkNGM0NTFjMWUiLCJ1c2VybmFtZSI6ImFsZXgiLCJpYXQiOjE1ODA5MTkyMzN9.a8y0MD13KQ2-Edvp_cR5MCtFG1Ek-FensEvrY_v8lCA
 
 {
-"item_name": "Aaa", "item_description": "asdasdasd2", "item_rating":"4","userId":"5e39d707c125684294403bfd"
+"item_name": "itemx", "item_description": "xxxxxx", "item_rating":"0","userId":"5e3ae9ab9ebdcb1d4c451c1e","times_rated":"0"
 }
 
 ###
-DELETE http://localhost:3005/api/items/5e3ad75faaa6361588818e3b
+DELETE http://localhost:3005/api/items/5e3af3ca1cddca288c8b1e4f
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTM5ZDcwN2MxMjU2ODQyOTQ0MDNiZmQiLCJ1c2VybmFtZSI6InRlMm8yMTMzMTIxMyIsImlhdCI6MTU4MDkxNDMxMH0.HOBLLY7-WMtsvjMT3SOXIMT0MUDMiTBRcQGKUOKW0tQ
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTNhZTlhYjllYmRjYjFkNGM0NTFjMWUiLCJ1c2VybmFtZSI6ImFsZXgiLCJpYXQiOjE1ODA5MTkyMzN9.a8y0MD13KQ2-Edvp_cR5MCtFG1Ek-FensEvrY_v8lCA
 
+###
+PUT http://localhost:3005/api/items/rate/5e3b00b96c999a2a4047d452
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTNhZmQxNmI1ZTNjMjE4ZjAyMGQyYzYiLCJ1c2VybmFtZSI6ImFsZXgyMyIsImlhdCI6MTU4MDkyNDIwN30.TwZUU-3UgCFE4WldqT-vry_P_lbsAhhVESPOw6lKmkc
+
+{
+"item_rating" : "10"
+}

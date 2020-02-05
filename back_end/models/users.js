@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
         type: String, required: true, minlength: 3, unique: true, match: [/^[a-z0-9_-]{3,15}$/, 'is invalid']
     },
     passwordHash: { type: String, required: true },
-    ratings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'item' }, { rating: Number }],
+    ratings: [{ id: { type: mongoose.Schema.Types.ObjectId, ref: 'Item' }, rating: Number }],
     items: [{
         type: mongoose.Schema.Types.ObjectId, ref: 'Item'
     }]
