@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken')
 const Item = require('../models/items')
 const User = require('../models/users')
 const itemsRouter = require('express').Router()
+const cloud = require('../utils/cloudinary')
+const upload = require('../utils/multer')
 
 itemsRouter.get('/', async (req, res, next) => {
     try {
@@ -25,7 +27,7 @@ itemsRouter.get('/:id', async (req, res, next) => {
     }
 })
 
-itemsRouter.post('/', async (req, res, next) => {
+itemsRouter.post('/', upload.any(), async (req, res, next) => {
     try {
         const body = req.body
         const token = req.token
@@ -36,6 +38,17 @@ itemsRouter.post('/', async (req, res, next) => {
         }
 
         const user = await User.findById(decodedToken._id)
+        let uploadedImage = {
+            url: ''
+        }
+        if (req.body.image) {
+            const imageInfo = {
+                image: req.body.image,
+                cloudImage: req.files[0].path
+            }
+            uploadedImage = await cloud.uploads(imageInfo.cloudImage)
+        }
+
 
         const newItem = new Item({
             item_name: body.item_name,
@@ -43,7 +56,9 @@ itemsRouter.post('/', async (req, res, next) => {
             date: body.date,
             item_rating: body.item_rating,
             times_rated: body.times_rated,
-            user: user._id
+            user: user._id,
+            image: req.body.image,
+            cloudImage: uploadedImage.url
         })
 
         const item = await newItem.save()
@@ -82,18 +97,17 @@ itemsRouter.put('/rate/:id', async (req, res, next) => {
         }
         const user = await User.findById(decodedToken._id)
         const itemToUpdate = await Item.findById(req.params.id)
-        let rating = 0
-        if (itemToUpdate.times_rated > 1) {
-            rating = (Number(req.body.item_rating) + Number(itemToUpdate.item_rating)) / 2
-        }
-        else rating = (Number(req.body.item_rating) + Number(itemToUpdate.item_rating)) / (itemToUpdate.times_rated + 1)
+
+        let ratings = itemToUpdate.ratings.concat(Number(req.body.item_rating))
+        let rating = Number(ratings.reduce((x, y) => x + y)) / ratings.length
+
 
         const updatedItem = {
             item_name: itemToUpdate.item_name,
             item_description: itemToUpdate.item_description,
             item_rating: rating,
             date: itemToUpdate.date,
-            times_rated: itemToUpdate.times_rated + 1,
+            ratings: ratings
         }
         const item = await Item.findByIdAndUpdate(req.params.id, updatedItem, { new: true })
         user.ratings = user.ratings.concat({ id: req.params.id, rating: req.body.item_rating })

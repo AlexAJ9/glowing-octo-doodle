@@ -1,4 +1,3 @@
-const cors = require('cors')
 const express = require('express')
 const mongoose = require('mongoose')
 const config = require('./utils/config')
@@ -18,7 +17,6 @@ mongoose.connect(config.url, { useUnifiedTopology: true, useNewUrlParser: true }
         console.log('error connecting to DB', err.message)
     })
 
-// app.use(cors)
 app.use(bodyParser.json())
 app.use(middleware.requestLogger)
 app.use(middleware.tokenExtractor)
