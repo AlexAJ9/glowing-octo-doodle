@@ -5,7 +5,7 @@ var storage = multer.diskStorage({
         if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
             cb(null, './files/images/')
         } else {
-            cb({ message: 'this file is neither a video or image file' }, false)
+            cb({ error: 'wrong file' }, false)
         }
     },
     filename: function (req, file, cb) {
