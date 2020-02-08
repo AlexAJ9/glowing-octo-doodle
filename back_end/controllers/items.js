@@ -41,9 +41,9 @@ itemsRouter.post('/', upload.any(), async (req, res, next) => {
         let uploadedImage = {
             url: ''
         }
-        if (req.body.image) {
+        if (req.files[0].path) {
+            console.log(req.files[0].path)
             const imageInfo = {
-                image: req.body.image,
                 cloudImage: req.files[0].path
             }
             uploadedImage = await cloud.uploads(imageInfo.cloudImage)

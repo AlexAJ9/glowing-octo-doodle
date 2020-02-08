@@ -18,7 +18,7 @@ Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTNjNDRjMDg5YmY4MjI2MjA1MGE4YTIiLCJ1c2VybmFtZSI6InVzZXIxIiwiaWF0IjoxNTgxMDA4MDc1fQ.zSQ6kDS_4eDiKmV0RcHQ9loA6q7CyNy8I28_xe8EIbQ
 
 ###
-PUT http://localhost:3005/api/items/rate/5e3c45ae45751c2a002082f6
+PUT http://localhost:3005/api/items/rate/5e3c455145751c2a002082f3
 Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTNjNDRjMDg5YmY4MjI2MjA1MGE4YTIiLCJ1c2VybmFtZSI6InVzZXIxIiwiaWF0IjoxNTgxMDA4MDc1fQ.zSQ6kDS_4eDiKmV0RcHQ9loA6q7CyNy8I28_xe8EIbQ
 
