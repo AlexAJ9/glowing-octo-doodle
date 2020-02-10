@@ -41,8 +41,7 @@ itemsRouter.post('/', upload.any(), async (req, res, next) => {
         let uploadedImage = {
             url: ''
         }
-        if (req.files[0].path) {
-            console.log(req.files[0].path)
+        if (req.files) {
             const imageInfo = {
                 cloudImage: req.files[0].path
             }
@@ -72,17 +71,39 @@ itemsRouter.post('/', upload.any(), async (req, res, next) => {
     }
 })
 
-itemsRouter.put('/:id', async (req, res, next) => {
+itemsRouter.put('/:id', upload.any(), async (req, res, next) => {
     try {
+        const token = req.token
         const body = req.body
-        const updatedItem = {
+
+        if (!token) {
+            return res.status(401).json({ error: 'missing token' })
+        }
+        const decodedToken = jwt.verify(token, process.env.Secret)
+        if (!decodedToken._id) {
+            return res.status(401).json({ error: 'invalid token' })
+        }
+        const userId = decodedToken._id
+        const item = await Item.findById(req.params.id)
+        if (!(userId.toString() === item.user.toString())) {
+            return res.status(404).end()
+        }
+        let uploadedImage = {
+            url: body.cloudImage
+        }
+        if (req.files) {
+            const imageInfo = {
+                cloudImage: req.files[0].path
+            }
+            uploadedImage = await cloud.uploads(imageInfo.cloudImage)
+        }
+        const itemObj = {
             item_name: body.item_name,
             item_description: body.item_description,
-            date: body.date,
-            item_rating: body.item_rating
+            cloudImage: uploadedImage.url
         }
-        const item = await Item.findByIdAndUpdate(req.params.id, updatedItem, { new: true })
-        res.status(201).json(item.toJSON())
+        const updatedItem = await Item.findByIdAndUpdate(req.params.id, itemObj, { new: true })
+        res.status(201).json(updatedItem.toJSON())
     }
     catch (err) {
         next(err)
@@ -131,12 +152,13 @@ itemsRouter.delete('/:id', async (req, res, next) => {
         }
         const userId = decodedToken._id
 
-        const item = await Item.findByIdAndRemove(req.params.id)
+        const item = await Item.findById(req.params.id)
         const user = await User.findById(userId)
 
         if (!(userId.toString() === item.user.toString())) {
             return res.status(404).end()
         }
+        await Item.findByIdAndRemove(req.params.id)
         user.items = user.items.filter(x => x._id !== req.params.id)
         await user.save()
         res.status(204).end()

@@ -7,5 +7,5 @@ POST http://localhost:3005/api/register  HTTP/1.1
 Content-Type: application/json 
 
 {
-    "username" : "user122" , "password":"1234"
+    "username" : "user7" , "password":"1234"
 }

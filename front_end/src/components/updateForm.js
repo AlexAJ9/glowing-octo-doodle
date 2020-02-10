@@ -19,10 +19,12 @@ const DataForm = (props) => {
         e.preventDefault()
         console.log(itemName);
         const item = new FormData()
+
         item.append('item_name', itemName)
         item.append('item_description', itemDescription)
         item.append('clodImage', image)
         props.edit(item)
+
     }
 
 
@@ -35,5 +37,5 @@ const DataForm = (props) => {
         </form>
     )
 }
-const ConnectedUpdateForm = connect()(DataForm)
+const ConnectedUpdateForm = connect(null, { edit })(DataForm)
 export default ConnectedUpdateForm

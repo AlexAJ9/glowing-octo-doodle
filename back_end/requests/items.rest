@@ -6,22 +6,30 @@ GET http://localhost:3005/api/items
 ###
 POST http://localhost:3005/api/items HTTP/1.1
 Content-Type: application/json 
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTNjNDRjMDg5YmY4MjI2MjA1MGE4YTIiLCJ1c2VybmFtZSI6InVzZXIxIiwiaWF0IjoxNTgxMDA4MDc1fQ.zSQ6kDS_4eDiKmV0RcHQ9loA6q7CyNy8I28_xe8EIbQ
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTQwNTA1OTFhZmM5MDFlZTA1N2Y0N2EiLCJ1c2VybmFtZSI6InVzZXI3IiwiaWF0IjoxNTgxMjc0MDg4fQ.JFS0pwGTntFDXP_SNw8pr6AnJKztZAJZu4j_z5q1gHU
 
 {
-"item_name": "item2", "item_description": "description"
+"item_name": "item2a", "item_description": "description"
 }
 
 ###
-DELETE http://localhost:3005/api/items/5e3c450089bf82262050a8a3
+DELETE http://localhost:3005/api/items/5e40542717d5132f88e6a614
 Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTNjNDRjMDg5YmY4MjI2MjA1MGE4YTIiLCJ1c2VybmFtZSI6InVzZXIxIiwiaWF0IjoxNTgxMDA4MDc1fQ.zSQ6kDS_4eDiKmV0RcHQ9loA6q7CyNy8I28_xe8EIbQ
 
 ###
-PUT http://localhost:3005/api/items/rate/5e3c455145751c2a002082f3
+PUT http://localhost:3005/api/items/rate/5e4052a5fe34cf2b88aa749d
 Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTNjNDRjMDg5YmY4MjI2MjA1MGE4YTIiLCJ1c2VybmFtZSI6InVzZXIxIiwiaWF0IjoxNTgxMDA4MDc1fQ.zSQ6kDS_4eDiKmV0RcHQ9loA6q7CyNy8I28_xe8EIbQ
 
 {
 "item_rating" : "4"
+}
+###
+PUT http://localhost:3005/api/items/5e40565af50fb52f5816240d
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTQwNTA1OTFhZmM5MDFlZTA1N2Y0N2EiLCJ1c2VybmFtZSI6InVzZXI3IiwiaWF0IjoxNTgxMjc0MDg4fQ.JFS0pwGTntFDXP_SNw8pr6AnJKztZAJZu4j_z5q1gHU
+
+{
+"item_name":"x"
 }

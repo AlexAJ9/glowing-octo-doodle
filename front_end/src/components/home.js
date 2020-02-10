@@ -1,15 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Grid, Image } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { Container, Button, Dropdown, Menu } from 'semantic-ui-react'
 
 const DataList = (props) => {
-    const [activeItem, setActiveItem] = useState('home')
-    const handleLogoOut = () => {
-        window.localStorage.clear()
-    }
-    const handleItemClick = (e, { name }) => setActiveItem(name)
 
     const Nav = () => {
         return (
@@ -18,7 +13,7 @@ const DataList = (props) => {
                 <Menu.Item name='create' as={Link} to='/create' active={activeItem === 'messages'} onClick={handleItemClick} />
                 <Menu.Menu position='right'>
                     <Menu.Item>
-                        <Button as={Link} to='/login' onClick={handleLogoOut} primary> Login</Button>
+                        <Button as={Link} to='/login' onClick={() => handleLogoOut()} primary> Login</Button>
                     </Menu.Item>
                 </Menu.Menu>
             </Menu>

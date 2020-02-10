@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import { withRouter } from 'react-router-dom'
 import { userRegister } from '../reducers/registerReducer'
+import { newNotification } from '../reducers/notificationReducer'
 import { Form, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 const Register = (props) => {
@@ -9,9 +11,9 @@ const Register = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const user = { username: username, password: password }
+        const user = { username: username, password: password }   
         props.userRegister(user)
-
+        props.history.push('/login')
     }
 
     return (
@@ -29,5 +31,9 @@ const Register = (props) => {
     )
 
 }
-const ConnectedRegister = connect(null, { userRegister })(Register)
-export default ConnectedRegister
+const mapDispatchToProps = {
+    userRegister,
+    newNotification
+}
+const ConnectedRegister = connect(null, mapDispatchToProps)(Register)
+export default withRouter(ConnectedRegister)
