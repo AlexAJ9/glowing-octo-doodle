@@ -1,24 +1,28 @@
 import React, { useState } from 'react'
 import { Grid, Image } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link, withRouter } from 'react-router-dom'
 import { Container, Button, Dropdown, Menu } from 'semantic-ui-react'
-
+import { userLogOut } from '../reducers/loginReducer'
 const DataList = (props) => {
     const [activeItem, setActiveItem] = useState('home')
-    const handleLogoOut = () => {
+    const handleLogoOut = (e) => {
+        e.preventDefault()
         window.localStorage.clear()
+        props.userLogOut()
+        props.history.push('/login')
+        props.logOut()
     }
     const handleItemClick = (e, { name }) => setActiveItem(name)
 
     const Nav = () => {
         return (
             <Menu size='large'>
-                <Menu.Item name='home' as={Link} to='/home' active={activeItem === 'home'} onClick={handleItemClick} />
+                <Menu.Item name='home' as={Link} to='/' active={activeItem === 'home'} onClick={handleItemClick} />
                 <Menu.Item name='create' as={Link} to='/create' active={activeItem === 'messages'} onClick={handleItemClick} />
                 <Menu.Menu position='right'>
                     <Menu.Item>
-                        <Button as={Link} to='/login' onClick={handleLogoOut} primary> Login</Button>
+                        <form onSubmit={handleLogoOut}><Button type='submit' primary> Login</Button></form>
                     </Menu.Item>
                 </Menu.Menu>
             </Menu>
@@ -42,9 +46,11 @@ const DataList = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        data: state.data
+        data: state.data,
+        user: state.user,
+        notification: state.notification
     }
 }
 
-const ConnectedList = connect(mapStateToProps, null)(DataList)
-export default ConnectedList
+const ConnectedList = connect(mapStateToProps, { userLogOut })(DataList)
+export default withRouter(ConnectedList)

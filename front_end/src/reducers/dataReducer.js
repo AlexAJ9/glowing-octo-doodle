@@ -77,8 +77,6 @@ export const remove = (data) => {
 }
 
 const dataReducer = (state = [], action) => {
-    console.log(action.type)
-
     switch (action.type) {
         case 'INIT': return action.data
         case 'CREATE': return [...state, action.data]

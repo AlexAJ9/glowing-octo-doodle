@@ -16,7 +16,7 @@ export const userLogin = (data) => {
             window.localStorage.setItem(
                 'loggedappUser', JSON.stringify(response)
             )
-            history.push('/')
+
         },
             error => {
                 dispatch({
@@ -26,9 +26,22 @@ export const userLogin = (data) => {
             })
     }
 }
-const loginReducer = (state = null, action) => {
+export const userLogOut = () => {
+    return dispatch => {
+        dispatch({
+            type: 'LOGOUT'
+        })
+        dispatch({
+            type: 'NEW',
+            data: { message: `See ya later.`, type: 'success' }
+        })
+    }
+}
+const initialState = { username: null, token: null }
+const loginReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'LOGIN': return action.data
+        case 'LOGOUT': return initialState
         default: return state
     }
 }

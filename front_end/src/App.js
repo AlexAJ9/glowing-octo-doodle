@@ -13,28 +13,27 @@ import { connect } from 'react-redux';
 const App = (props) => {
 
     const [user, setUser] = useState(null)
-
+    const logOut = () => {
+        setUser(null)
+    }
     useEffect(() => {
-        props.initAll()
         const loggedUserJSON = window.localStorage.getItem('loggedappUser')
         if (loggedUserJSON) {
-            console.log(loggedUserJSON)
             const currentUser = JSON.parse(loggedUserJSON)
-            console.log(currentUser)
             setUser(JSON.parse(loggedUserJSON))
             dataService.setToken(currentUser.token)
         }
-    }, [props.user])
+    }, [props])
 
 
-    // useEffect(() => {
-    //     if (props.user) {
-    //         setUser(props.user)
-    //         dataService.setToken(user.token)
-    //     }
-    //     props.initAll()
-
-    // }, [])
+    useEffect(() => {
+        props.initAll()
+        console.log(loggedUserJSON)
+        const loggedUserJSON = window.localStorage.getItem('loggedappUser')
+        if (!loggedUserJSON) {
+            setUser(null)
+        }
+    }, [])
 
     const matchId = (id) => props.data.find(x => x.id === id.toString())
 
@@ -48,7 +47,7 @@ const App = (props) => {
             <Router>
 
                 <Route exact path='/edit/:id' render={({ match }) => <UpdateForm item={matchId(match.params.id)} />} />
-                <Route exact path='/' render={() => user ? <List /> : <Redirect to='/login' />} />
+                <Route exact path='/' render={() => user ? <List logOut={logOut} /> : <Redirect to='/login' />} />
                 <Route path='/login' render={() => user === null ? <Login /> : <Redirect to='/' />} />
                 <Route path='/register' render={() => <Register />} />
                 <Route path='/create' render={() => <Form />} />
@@ -61,7 +60,8 @@ const App = (props) => {
 const mapStateToProps = (state) => {
     return {
         data: state.data,
-        user: state.loggedUser
+        user: state.user,
+        notification: state.notification
     }
 }
 const ConnectedApp = connect(mapStateToProps, { initAll })(App)

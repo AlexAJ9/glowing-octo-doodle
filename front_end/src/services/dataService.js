@@ -5,6 +5,9 @@ let token = null
 const setToken = newToken => {
     token = `bearer ${newToken}`
 }
+const destroyToken = () => {
+    token = null
+  }
 const getAll = async () => {
     const res = await axios.get(baseUrl)
     return res.data
@@ -27,4 +30,4 @@ const remove = async (data) => {
     const res = await axios.delete(`${baseUrl}/${data.id}`)
 }
 
-export default { getAll, create, update, remove, setToken }
+export default { getAll, create, update, remove, setToken ,destroyToken}

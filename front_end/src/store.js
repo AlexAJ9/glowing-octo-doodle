@@ -10,7 +10,7 @@ import notificationReducer from './reducers/notificationReducer'
 const reducer = combineReducers({
     data: dataReducer,
     filter: filterReducer,
-    loggedUser: loginReducer,
+    user: loginReducer,
     registeredUser: registerReducer,
     notification: notificationReducer
 })

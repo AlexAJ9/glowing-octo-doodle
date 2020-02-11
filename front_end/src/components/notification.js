@@ -14,7 +14,7 @@ const Notification = (props) => {
                 <Message success >
                     <Message.Header>{props.notification.message}</Message.Header>
                 </Message>
-                <p style={{ display: 'none'} } > { setTimeout(()=> props.newNotification({message: null, type: null }),5000)}</p>
+                <p style={{ display: 'none'} } > { setTimeout(()=> props.newNotification({message: null, type: null }),3000)}</p>
             </div>
         )
     }

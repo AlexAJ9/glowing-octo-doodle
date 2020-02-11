@@ -19,31 +19,32 @@ const LoginForm = (props) => {
         props.userLogin(credentials)
     }
 
-        return (
-            <div>
-                <Segment placeholder>
-                    <Grid columns={2} relaxed='very' stackable>
-                        <Grid.Column>
-                            <Form onSubmit={handleLogin}>
-                                <Form.Input icon='user' value={username} onChange={({ target }) => setUsername(target.value)} iconPosition='left' label='Username' placeholder='Username' />
-                                <Form.Input icon='lock' type='password' value={password} onChange={({ target }) => setPassword(target.value)} iconPosition='left' label='Password' type='password' />
-                                <Button type='submit' content='Login' primary />
-                            </Form>
-                        </Grid.Column>
-                        <Grid.Column verticalAlign='middle'>
-                            <Button as={Link} to='/register' content='Sign up' icon='signup' size='big' />
-                        </Grid.Column>
-                    </Grid>
-                    <Divider vertical>Or</Divider>
-                </Segment>
-            </div>
-        )
-    }
+    return (
+        <div>
+            <Segment placeholder>
+                <Grid columns={2} relaxed='very' stackable>
+                    <Grid.Column>
+                        <Form onSubmit={handleLogin}>
+                            <Form.Input icon='user' value={username} onChange={({ target }) => setUsername(target.value)} iconPosition='left' label='Username' placeholder='Username' />
+                            <Form.Input icon='lock' type='password' value={password} onChange={({ target }) => setPassword(target.value)} iconPosition='left' label='Password' />
+                            <Button type='submit' content='Login' primary />
+                        </Form>
+                    </Grid.Column>
+                    <Grid.Column verticalAlign='middle'>
+                        <Button as={Link} to='/register' content='Sign up' icon='signup' size='big' />
+                    </Grid.Column>
+                </Grid>
+                <Divider vertical>Or</Divider>
+            </Segment>
+        </div>
+    )
+}
 
-    const mapDispatchToProps = {
-        userLogin,
-        newNotification
+const mapStateToProps = (state) => {
+    return{
+        user: state.user
     }
+}
 
-    const ConnectedLogin = connect(null, mapDispatchToProps)(LoginForm)
-    export default withRouter(ConnectedLogin)
+const ConnectedLogin = connect(mapStateToProps, { userLogin })(LoginForm)
+export default withRouter(ConnectedLogin)
