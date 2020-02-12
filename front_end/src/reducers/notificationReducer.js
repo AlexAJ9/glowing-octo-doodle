@@ -1,4 +1,3 @@
-
 export const newNotification = (data) => {
     return dispatch => {
         dispatch({
@@ -11,7 +10,6 @@ export const newNotification = (data) => {
 const initialState = { message: null, type: null }
 
 const notificationReducer = (state = initialState, action) => {
-    console.log(action.type)
     switch (action.type) {
         case 'NEW': return action.data
         default: return state

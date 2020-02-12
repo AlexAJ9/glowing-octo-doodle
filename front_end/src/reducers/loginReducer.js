@@ -1,17 +1,16 @@
 import loginService from '../services/loginService'
 
-import history from '../history'
 export const userLogin = (data) => {
 
     return dispatch => {
         const user = loginService.login(data).then(response => {
             dispatch({
                 type: 'LOGIN',
-                data: JSON.stringify(response)
+                data: response
             })
             dispatch({
                 type: 'NEW',
-                data: { message: `Welcome ${JSON.stringify(response.username)}`, type: 'success' }
+                data: { message: `Welcome ${response.username}!`, type: 'success' }
             })
             window.localStorage.setItem(
                 'loggedappUser', JSON.stringify(response)

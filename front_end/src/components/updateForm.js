@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import React, { useState } from 'react'
 import { edit } from '../reducers/dataReducer'
-
+import { remove } from '../reducers/dataReducer'
+import { withRouter } from 'react-router-dom'
+import { Button, Form, TextArea } from 'semantic-ui-react'
 
 const DataForm = (props) => {
 
@@ -17,25 +19,39 @@ const DataForm = (props) => {
     }
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(itemName);
         const item = new FormData()
-
         item.append('item_name', itemName)
         item.append('item_description', itemDescription)
         item.append('clodImage', image)
-        props.edit(item)
-
+        const id = props.item.id
+        props.edit(item, id)
+    }
+    const deleteItem = () => {
+        props.remove(props.item.id)
+        props.history.push('/')
     }
 
-
     return (
-        <form onSubmit={handleSubmit}>
-            <div><input type='text' value={itemName} onChange={handleTitleChange} /></div>
-            <div><input type='text' value={itemDescription} onChange={handleDescriptionChange} /></div>
-            <input type="file" onChange={({ target }) => setImage(target.files[0])} />
-            <button type='submit'>Update</button>
-        </form>
+        <div className='dataForm'>
+            <Form onSubmit={handleSubmit}>
+                <Form.Field>
+                    <input type='text' value={itemName} onChange={handleTitleChange} required placeholder='Movie title' width={9} />
+                </Form.Field>
+                <Form.Field>
+                    <TextArea style={{ minHeight: 100 }} value={itemDescription} onChange={handleDescriptionChange} placeholder='Description' />
+                </Form.Field>
+                <input type="file" onChange={({ target }) => setImage(target.files[0])} />
+                <Button type='submit'>Update</Button>
+            </Form>
+            <div><Button onClick={deleteItem}>Delete</Button></div>
+        </div>
     )
 }
-const ConnectedUpdateForm = connect(null, { edit })(DataForm)
-export default ConnectedUpdateForm
+const mapDispatchToProps = {
+    edit,
+    remove
+}
+const ConnectedUpdateForm = connect(null, mapDispatchToProps)(DataForm)
+export default withRouter(ConnectedUpdateForm)
+
+

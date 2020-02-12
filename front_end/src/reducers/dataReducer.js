@@ -1,13 +1,11 @@
-
 import dataService from '../services/dataService'
-
 
 export const newEntry = (data) => {
     return dispatch => {
         const entry = dataService.create(data).then(response => {
             dispatch({
                 type: 'CREATE',
-                data: entry
+                data: response
             })
             dispatch({
                 type: 'NEW',
@@ -32,12 +30,13 @@ export const initAll = (data) => {
         })
     }
 }
-export const edit = (data) => {
+export const edit = (data,id) => {
     return async dispatch => {
-        const entry = await dataService.update(data).then(response => {
+        const entry = await dataService.update(data,id).then(response => {
             dispatch({
                 type: 'UPDATE',
-                data: entry
+                data: response,
+                id:id
             })
             dispatch({
                 type: 'NEW',
@@ -54,12 +53,14 @@ export const edit = (data) => {
 
     }
 }
+
+
 export const remove = (data) => {
     return async dispatch => {
         const entry = await dataService.remove(data).then(response => {
             dispatch({
                 type: 'DELETE',
-                id: data.id
+                id: data
             })
             dispatch({
                 type: 'NEW',
@@ -77,11 +78,12 @@ export const remove = (data) => {
 }
 
 const dataReducer = (state = [], action) => {
+   
     switch (action.type) {
         case 'INIT': return action.data
         case 'CREATE': return [...state, action.data]
-        case 'UPDATE': return state.map(x => x.id === action.data.id ? x : action.data)
-        case 'DELETE': return state.filter(x => x.id !== action.data.id)
+        case 'UPDATE': return state.map(x => x.id !== action.id ? x : action.data)
+        case 'DELETE': return state.filter(x => x.id !== action.id)
         default: return state
     }
 

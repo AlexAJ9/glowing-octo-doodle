@@ -1,45 +1,28 @@
-import React, { useState } from 'react'
-import { Grid, Image } from 'semantic-ui-react'
+import React from 'react'
 import { connect } from 'react-redux'
+import { Grid, Image } from 'semantic-ui-react'
+import { Container, Button } from 'semantic-ui-react'
 import { BrowserRouter as Router, Route, Link, withRouter } from 'react-router-dom'
-import { Container, Button, Dropdown, Menu } from 'semantic-ui-react'
-import { userLogOut } from '../reducers/loginReducer'
-const DataList = (props) => {
-    const [activeItem, setActiveItem] = useState('home')
-    const handleLogoOut = (e) => {
-        e.preventDefault()
-        window.localStorage.clear()
-        props.userLogOut()
-        props.history.push('/login')
-        props.logOut()
-    }
-    const handleItemClick = (e, { name }) => setActiveItem(name)
 
-    const Nav = () => {
-        return (
-            <Menu size='large'>
-                <Menu.Item name='home' as={Link} to='/' active={activeItem === 'home'} onClick={handleItemClick} />
-                <Menu.Item name='create' as={Link} to='/create' active={activeItem === 'messages'} onClick={handleItemClick} />
-                <Menu.Menu position='right'>
-                    <Menu.Item>
-                        <form onSubmit={handleLogoOut}><Button type='submit' primary> Login</Button></form>
-                    </Menu.Item>
-                </Menu.Menu>
-            </Menu>
-        )
-    }
+import './style.css'
+
+const DataList = (props) => {
+
     return (
-        <div>
-            <Nav />
-            {props.data.map(x => <Grid>
-                <Grid.Column width={4}>
-                    {x.item_name}
+        <div className='dataGrid'>
+            {props.data.map(x => <div> <Grid>
+                <Grid.Column width={7}>
+                    <div><h2>{x.item_name}</h2> <em>Added on: {x.date}</em></div>
+                    <p>{x.item_description}</p>
+
                 </Grid.Column>
-                <Grid.Column width={9}>
+                <Grid.Column width={7}>
                     <Image src={x.cloudImage} />
                 </Grid.Column>
+            </Grid>
                 <Button as={Link} to={`/edit/${x.id}`} primary>Edit</Button>
-            </Grid>)}
+            </div>
+            )}
         </div>
     )
 }
@@ -52,5 +35,5 @@ const mapStateToProps = (state) => {
     }
 }
 
-const ConnectedList = connect(mapStateToProps, { userLogOut })(DataList)
+const ConnectedList = connect(mapStateToProps, null)(DataList)
 export default withRouter(ConnectedList)

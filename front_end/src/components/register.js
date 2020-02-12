@@ -1,9 +1,14 @@
+import { connect } from 'react-redux'
 import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
+import { Form, Button, Segment } from 'semantic-ui-react'
+
 import { userRegister } from '../reducers/registerReducer'
 import { newNotification } from '../reducers/notificationReducer'
-import { Form, Button } from 'semantic-ui-react'
-import { connect } from 'react-redux'
+
+import './style.css'
+
+
 const Register = (props) => {
 
     const [username, setUsername] = useState('')
@@ -11,23 +16,27 @@ const Register = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const user = { username: username, password: password }   
+        const user = { username: username, password: password }
         props.userRegister(user)
         props.history.push('/login')
     }
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <Form.Field>
-                <label>First Name</label>
-                <input placeholder='First Name' value={username} onChange={({ target }) => setUsername(target.value)} required />
-            </Form.Field>
-            <Form.Field>
-                <label>Last Name</label>
-                <input placeholder='Password' type='password' value={password} onChange={({ target }) => setPassword(target.value)} required />
-            </Form.Field>
-            <Button type='submit'>Submit</Button>
-        </Form>
+        <div className='dcontainer'>
+        <Segment placeholder>
+            <Form onSubmit={handleSubmit}>
+                <Form.Field className='register'>
+                    <label>Username</label>
+                    <input placeholder='Username' value={username} onChange={({ target }) => setUsername(target.value)} required />
+                </Form.Field>
+                <Form.Field className='register'>
+                    <label>Password</label>
+                    <input placeholder='Password' type='password' value={password} onChange={({ target }) => setPassword(target.value)} required />
+                </Form.Field>
+                <Button type='submit'>Submit</Button>
+            </Form>
+        </Segment>
+        </div>
     )
 
 }

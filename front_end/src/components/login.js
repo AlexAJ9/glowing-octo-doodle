@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
 import React, { useState } from 'react'
-import { userLogin } from '../reducers/loginReducer'
-import { newNotification } from '../reducers/notificationReducer'
-import { Button, Divider, Form, Grid, Segment } from 'semantic-ui-react'
 import { Link, withRouter } from 'react-router-dom'
+import { userLogin } from '../reducers/loginReducer'
+import { Button, Divider, Form, Grid, Segment } from 'semantic-ui-react'
 
+import './style.css'
 
 const LoginForm = (props) => {
     const [username, setUsername] = useState('')
@@ -20,7 +20,7 @@ const LoginForm = (props) => {
     }
 
     return (
-        <div>
+        <div className='dcontainer'>
             <Segment placeholder>
                 <Grid columns={2} relaxed='very' stackable>
                     <Grid.Column>
@@ -41,7 +41,7 @@ const LoginForm = (props) => {
 }
 
 const mapStateToProps = (state) => {
-    return{
+    return {
         user: state.user
     }
 }
