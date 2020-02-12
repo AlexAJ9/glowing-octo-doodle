@@ -31,7 +31,7 @@ itemsRouter.post('/', upload.any(), async (req, res, next) => {
     try {
         const body = req.body
         const token = req.token
-        const decodedToken = jwt.verify(token, process.env.Secret)
+        // const decodedToken = jwt.verify(token, process.env.Secret)
 
         if (!decodedToken || !token) {
             return res.status(401).json({ error: 'invalid token' })
