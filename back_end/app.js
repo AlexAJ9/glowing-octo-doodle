@@ -1,4 +1,5 @@
 const cors = require('cors')
+const path = require('path')
 const express = require('express')
 const mongoose = require('mongoose')
 const config = require('./utils/config')
@@ -26,6 +27,13 @@ app.use(middleware.tokenExtractor)
 app.use('/api/login', loginRouter)
 app.use('/api/items', itemsRouter)
 app.use('/api/register', usersRouter)
+app.get('/*', function (req, res) {
+    res.sendFile(path.join(__dirname, './build/index.html'), function (err) {
+        if (err) {
+            res.status(500).send(err)
+        }
+    })
+})
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
