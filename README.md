@@ -1,4 +1,4 @@
-# [Live app](https://dry-sands-55175.herokuapp.com)
+# movie_blog - [Live app](https://dry-sands-55175.herokuapp.com)
 
 React/Redux/Expess SPA
 
