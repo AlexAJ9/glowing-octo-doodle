@@ -120,7 +120,7 @@ itemsRouter.put('/rate/:id', async (req, res, next) => {
         const itemToUpdate = await Item.findById(req.params.id)
 
         let ratings = itemToUpdate.ratings.concat(Number(req.body.item_rating))
-        let rating = Number(ratings.reduce((x, y) => x + y)) / ratings.length
+        let rating = (Number(ratings.reduce((x, y) => x + y)) / ratings.length).toPrecision(2)
 
 
         const updatedItem = {
@@ -131,7 +131,7 @@ itemsRouter.put('/rate/:id', async (req, res, next) => {
             ratings: ratings
         }
         const item = await Item.findByIdAndUpdate(req.params.id, updatedItem, { new: true })
-        user.ratings = user.ratings.concat({ id: req.params.id, rating: req.body.item_rating })
+        // user.ratings = user.ratings.push({ id: req.params.id, rating: req.body.item_rating }) FIX THIS
         await user.save()
         res.status(201).json(item.toJSON())
     }

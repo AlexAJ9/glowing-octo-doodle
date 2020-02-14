@@ -53,6 +53,29 @@ export const edit = (data,id) => {
 
     }
 }
+export const rateItem = (data,id) => {
+    return async dispatch => {
+        const entry = await dataService.rate(data,id).then(response => {
+            dispatch({
+                type: 'UPDATE',
+                data: response,
+                id:id
+            })
+            dispatch({
+                type: 'NEW',
+                data: { message: 'Success! Item Rated!', type: 'success' }
+            })
+
+        },
+            error => {
+                dispatch({
+                    type: 'NEW',
+                    data: { message: 'Error updating item. Please try again.', type: 'negative' }
+                })
+            })
+
+    }
+}
 
 
 export const remove = (data) => {

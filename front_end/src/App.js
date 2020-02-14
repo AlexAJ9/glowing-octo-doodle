@@ -99,4 +99,4 @@ const mapDispatchToProps = {
 const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App)
 export default ConnectedApp
 
-// TO DO : FIX ROUTER BUGSS/ CSS / UI RESPONSIVE / MESSAGES / Rate Items
+// TO DO : FIX ROUTER BUGSS/ CSS / UI RESPONSIVE / MESSAGES / Fix ratings 

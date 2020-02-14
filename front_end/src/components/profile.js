@@ -33,6 +33,7 @@ const UserProfile = props => {
                             <Table.Cell>{item.date}</Table.Cell>
                             <Table.Cell>{item.item_rating}</Table.Cell>
                             <Table.Cell> <Button as={Link} to={`/item/${item.id}`} primary>Show</Button></Table.Cell>
+                            <Table.Cell> <Button as={Link} to={`/edit/${item.id}`} primary>Edit</Button></Table.Cell>
                         </Table.Row>)}
                 </Table.Body>
             </Table>

@@ -26,10 +26,16 @@ const update = async (data, id) => {
     const res = await axios.put(`${baseUrl}/${id}`, data, config)
     return res.data
 }
+const rate = async (data, id) => {
+    const config = { headers: { Authorization: token } }
+    const res = await axios.put(`${baseUrl}/rate/${id}`, data, config)
+    return res.data
+}
+
 
 const remove = async (id) => {
     const config = { headers: { Authorization: token } }
-    const res = await axios.delete(`${baseUrl}/${id}`,config)
+    const res = await axios.delete(`${baseUrl}/${id}`, config)
 }
 
-export default { getAll, create, update, remove, setToken, destroyToken }
+export default { getAll, create, update, remove, setToken, rate, destroyToken }
