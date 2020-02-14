@@ -26,6 +26,7 @@ app.use(middleware.tokenExtractor)
 
 app.use('/api/login', loginRouter)
 app.use('/api/items', itemsRouter)
+app.use('/api/users', usersRouter)
 app.use('/api/register', usersRouter)
 app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname, './build/index.html'), function (err) {

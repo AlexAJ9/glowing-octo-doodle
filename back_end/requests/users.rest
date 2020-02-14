@@ -9,3 +9,6 @@ Content-Type: application/json
 {
     "username" : "user7" , "password":"1234"
 }
+
+###
+GET http://localhost:3005/api/users/5e45555ca57257000436deff

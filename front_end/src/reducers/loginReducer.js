@@ -36,7 +36,7 @@ export const userLogOut = () => {
         })
     }
 }
-const initialState = { username: null, token: null }
+const initialState = { username: null, token: null, id: null }
 const loginReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'LOGIN': return action.data

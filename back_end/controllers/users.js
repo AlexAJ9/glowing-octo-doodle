@@ -24,10 +24,20 @@ userRouter.post('/', async (req, res, next) => {
 
 userRouter.get('/', async (req, res, next) => {
     try {
-        const users = await User.find({}).populate('items', { item_name: 1, item_rating: 1 })
+        const users = await User.find({}).populate('items', { item_name: 1, item_rating: 1, date: 1 })
         res.json(users.map(x => x.toJSON()))
     }
     catch (err) { next(err) }
 })
 
+userRouter.get('/:id', async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.id).populate('items', { item_name: 1, item_rating: 1, date: 1 })
+        res.json(user.toJSON())
+    }
+    catch (err) {
+        next(err)
+    }
+
+})
 module.exports = userRouter
