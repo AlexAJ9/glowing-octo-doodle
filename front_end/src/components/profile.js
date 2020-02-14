@@ -1,7 +1,10 @@
 import { connect } from 'react-redux'
-import { Table } from 'semantic-ui-react'
-import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { Table, Button } from 'semantic-ui-react'
 import userService from '../services/userService'
+import React, { useEffect, useState } from 'react'
+
+
 const UserProfile = props => {
 
     const [items, setItems] = useState([])
@@ -24,11 +27,12 @@ const UserProfile = props => {
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {items.map(item => 
+                    {items.map(item =>
                         <Table.Row>
                             <Table.Cell>{item.item_name}</Table.Cell>
                             <Table.Cell>{item.date}</Table.Cell>
                             <Table.Cell>{item.item_rating}</Table.Cell>
+                            <Table.Cell> <Button as={Link} to={`/item/${item.id}`} primary>Show</Button></Table.Cell>
                         </Table.Row>)}
                 </Table.Body>
             </Table>

@@ -14,13 +14,11 @@ const DataList = (props) => {
                 <Grid.Column width={7}>
                     <div><h2>{x.item_name}</h2> <em>Added on: {x.date}</em></div>
                     <p>{x.item_description}</p>
-
                 </Grid.Column>
                 <Grid.Column width={7}>
                     <Image src={x.cloudImage} />
                 </Grid.Column>
             </Grid>
-                <Button as={Link} to={`/edit/${x.id}`} primary>Edit</Button>
             </div>
             )}
         </div>
