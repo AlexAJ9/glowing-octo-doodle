@@ -112,7 +112,7 @@ itemsRouter.put('/:id', upload.any(), async (req, res, next) => {
 itemsRouter.put('/rate/:id', async (req, res, next) => {
     try {
         const token = req.token
-        const decodedToken = jwt.verify(token, process.env.SECRET)
+        const decodedToken = jwt.verify(token, process.env.Secret)
         if (!decodedToken || !token) {
             return res.status(401).json({ error: 'invalid token' })
         }
