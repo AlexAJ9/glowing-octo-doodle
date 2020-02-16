@@ -1,6 +1,6 @@
-# movie_blog - [Live app](https://dry-sands-55175.herokuapp.com)
-
-React/Redux/Expess SPA
+# Movie Blog 
+### [Live app](https://dry-sands-55175.herokuapp.com)
+Fullstack React/Redux/Expess SPA
 
 ## Features
 
