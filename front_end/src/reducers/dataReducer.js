@@ -15,7 +15,7 @@ export const newEntry = (data) => {
             error => {
                 dispatch({
                     type: 'NEW',
-                    data: { message: 'Error creating item. Please try again.', type: 'negative' }
+                    data: { message: 'Minimum title length is 3 characters, 5 for description. Please try again.', type: 'negative' }
                 })
             })
 
@@ -47,7 +47,7 @@ export const edit = (data,id) => {
             error => {
                 dispatch({
                     type: 'NEW',
-                    data: { message: 'Error updating item. Please try again.', type: 'negative' }
+                    data: { message: 'Minimum title length is 3 characters, 5 for description. Please try again.', type: 'negative' }
                 })
             })
 

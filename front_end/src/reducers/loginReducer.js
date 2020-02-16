@@ -31,10 +31,6 @@ export const userData = (data) => {
             type: 'REFRESH',
             data: data
         })
-        // window.localStorage.setItem(
-        //     'loggedappUser', JSON.stringify(response)
-        // )
-
     }
 }
 export const userLogOut = () => {

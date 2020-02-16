@@ -16,7 +16,7 @@ export const userRegister = (data) => {
             error => {
                 dispatch({
                     type: 'NEW',
-                    data: { message: 'There is some kind of error, try again.', type: 'negative' }
+                    data: { message: 'Minimum Username length is 3 characters, please try again.', type: 'negative' }
                 })
             }
         )
