@@ -1,7 +1,6 @@
 import loginService from '../services/loginService'
 
 export const userLogin = (data) => {
-
     return dispatch => {
         const user = loginService.login(data).then(response => {
             dispatch({
@@ -25,6 +24,19 @@ export const userLogin = (data) => {
             })
     }
 }
+
+export const userData = (data) => {
+    return dispatch => {
+        dispatch({
+            type: 'REFRESH',
+            data: data
+        })
+        // window.localStorage.setItem(
+        //     'loggedappUser', JSON.stringify(response)
+        // )
+
+    }
+}
 export const userLogOut = () => {
     return dispatch => {
         dispatch({
@@ -41,6 +53,7 @@ const loginReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'LOGIN': return action.data
         case 'LOGOUT': return initialState
+        case 'REFRESH': return action.data
         default: return state
     }
 }

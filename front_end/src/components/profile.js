@@ -8,10 +8,13 @@ import React, { useEffect, useState } from 'react'
 const UserProfile = props => {
 
     const [items, setItems] = useState([])
+
     useEffect(() => {
-        const x = userService.getUserInfo(props.user.id).then(res => {
-            setItems([...items, ...res.items])
-        })
+        if (props.user.id !== null) {
+            userService.getUserInfo(props.user.id).then(res => {
+                setItems([...items, ...res.items])
+            })
+        }
     }, [])
 
     return (

@@ -4,17 +4,18 @@ import { Container, Button, Menu } from 'semantic-ui-react'
 import { BrowserRouter as Router, Route, Link, Redirect, withRouter } from 'react-router-dom'
 
 import Login from './components/login'
-import Item from './components/singleItem'
-import Register from './components/register'
-import dataService from './services/dataService'
-import Form from './components/dataForm'
 import List from './components/dataList'
-import Notification from './components/notification'
-import UpdateForm from './components/updateForm'
+import Form from './components/dataForm'
+import Item from './components/singleItem'
 import Profile from './components/profile'
+import Register from './components/register'
+import UpdateForm from './components/updateForm'
+import Notification from './components/notification'
+
+import dataService from './services/dataService'
 
 import { initAll } from './reducers/dataReducer'
-import { userLogOut } from './reducers/loginReducer'
+import { userData, userLogOut } from './reducers/loginReducer'
 
 import './components/style.css'
 
@@ -22,7 +23,6 @@ const App = (props) => {
 
     const [user, setUser] = useState(null)
     const [activeItem, setActiveItem] = useState('home')
-
 
     const logOut = () => setUser(null)
     const matchId = (id) => props.data.find(x => x.id === id.toString())
@@ -37,7 +37,15 @@ const App = (props) => {
         }
     }, [props])
 
-
+    useEffect(() => {
+        const loggedUserJSON = window.localStorage.getItem('loggedappUser')
+        if (loggedUserJSON) {
+            const currentUser = JSON.parse(loggedUserJSON)
+            setUser(JSON.parse(loggedUserJSON))
+            dataService.setToken(currentUser.token)
+            props.userData(JSON.parse(loggedUserJSON))
+        }
+    }, [])
 
     useEffect(() => {
         props.initAll()
@@ -48,7 +56,6 @@ const App = (props) => {
         window.localStorage.clear()
         props.userLogOut()
         logOut()
-
     }
 
     const Nav = () => {
@@ -69,14 +76,14 @@ const App = (props) => {
     return (
         <Container>
             <Router>
-                {user ? Nav() : null}
+                {user ? Nav() : <Redirect to='/login' />}
                 <Route path='/register' render={() => <Register />} />
-                <Route exact path='/' render={() => user ? <List /> : <Redirect to='/login' />} />
-                <Route path='/profile' render={() => user ? <Profile /> : <Redirect to='/login' />} />
+                <Route exact path='/' render={() => <List />} />
+                <Route path='/profile' render={() => <Profile />} />
                 <Route path='/login' render={() => user === null ? <Login /> : <Redirect to='/' />} />
-                <Route path='/create' render={() => user ? <Form /> : <Redirect to='/login' />} />
+                <Route path='/create' render={() => <Form />} />
                 <Route path='/item/:id' render={({ match }) => <Item item={matchId(match.params.id)} />} />
-                <Route exact path='/edit/:id' render={({ match }) => user ? <UpdateForm item={matchId(match.params.id)} /> : <Redirect to='/login' />} />
+                <Route exact path='/edit/:id' render={({ match }) => <UpdateForm item={matchId(match.params.id)} />} />
                 <Notification />
             </Router>
         </Container>
@@ -93,7 +100,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     initAll,
-    userLogOut
+    userLogOut,
+    userData
 }
 
 const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App)
